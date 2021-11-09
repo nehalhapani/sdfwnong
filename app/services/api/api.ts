@@ -3,6 +3,8 @@ import { getGeneralApiProblem } from "./api-problem"
 import { ApiConfig, DEFAULT_API_CONFIG } from "./api-config"
 import * as Types from "./api.types"
 
+const API_KEY = '0TLletNJO5przSfJnEXZMfJJTgkhR7xXTpf202er';
+
 /**
  * Manages all requests to the API.
  */
@@ -78,9 +80,9 @@ export class Api {
    * Gets a single user by ID
    */
 
-  async getUser(id: string): Promise<Types.GetUserResult> {
+  async getRandomAstroid(): Promise<Types.getRandom> {
     // make the api call
-    const response: ApiResponse<any> = await this.apisauce.get(`/users/${id}`)
+    const response: ApiResponse<any> = await this.apisauce.get(`https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=${API_KEY}`)
 
     // the typical ways to die when calling an api
     if (!response.ok) {
@@ -90,11 +92,24 @@ export class Api {
 
     // transform the data into the format we are expecting
     try {
-      const resultUser: Types.User = {
-        id: response.data.id,
-        name: response.data.name,
-      }
-      return { kind: "ok", user: resultUser }
+      return { kind: "ok", data: response.data }
+    } catch {
+      return { kind: "bad-data" }
+    }
+  }
+  async getAstroiddata(astroidId: string): Promise<Types.getAstroidData> {
+    // make the api call
+    const response: ApiResponse<any> = await this.apisauce.get(`https://api.nasa.gov/neo/rest/v1/neo/${astroidId}?api_key=${API_KEY}`)
+
+    // the typical ways to die when calling an api
+    if (!response.ok) {
+      const problem = getGeneralApiProblem(response)
+      if (problem) return problem
+    }
+
+    // transform the data into the format we are expecting
+    try {
+      return { kind: "ok", data: response.data }
     } catch {
       return { kind: "bad-data" }
     }

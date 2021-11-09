@@ -8,16 +8,21 @@ import { mergeAll, flatten } from "ramda"
 
 // the base styling for the container
 const CONTAINER: ViewStyle = {
-  paddingVertical: spacing[3],
 }
 
 // the base styling for the TextInput
 const INPUT: TextStyle = {
   fontFamily: typography.primary,
-  color: color.text,
-  minHeight: 44,
+  color: color.storybookTextColor,
+  minHeight: 40,
+  // marginBottom:10,
   fontSize: 18,
+  marginHorizontal:20,
   backgroundColor: color.palette.white,
+  borderWidth:1,
+  borderColor: color.palette.lightGrey,
+  paddingHorizontal:10,
+  borderRadius:4
 }
 
 // currently we have no presets, but that changes quickly when you build your app.

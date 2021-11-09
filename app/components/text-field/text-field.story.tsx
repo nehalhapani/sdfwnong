@@ -10,13 +10,13 @@ import { ViewStyle, TextStyle, Alert } from "react-native"
 
 declare let module
 
-const styleArray: ViewStyle[] = [{ paddingHorizontal: 30 }, { borderWidth: 30 }]
+const styleArray: ViewStyle[] = [{ paddingHorizontal: 20 }, { borderWidth: 20 }]
 
 const inputStyleArray: TextStyle[] = [
   {
     backgroundColor: "rebeccapurple",
     color: "white",
-    padding: 40,
+    // padding: 40,
   },
   {
     borderWidth: 10,
